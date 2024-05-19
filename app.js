@@ -114,38 +114,38 @@ const deleteTour = (req, res) => {
 
 const getAllUsers = (req, res) => {
   res.status(500).json({
-    status: "error",
-    message: 'This route is not yet defined'
-  })
-}
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
 
 const createUser = (req, res) => {
   res.status(500).json({
-    status: "error",
-    message: 'This route is not yet defined'
-  })
-}
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
 
 const getUser = (req, res) => {
   res.status(500).json({
-    status: "error",
-    message: 'This route is not yet defined'
-  })
-}
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
 
 const updateUser = (req, res) => {
   res.status(500).json({
-    status: "error",
-    message: 'This route is not yet defined'
-  })
-}
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
 
 const deleteUser = (req, res) => {
   res.status(500).json({
-    status: "error",
-    message: 'This route is not yet defined'
-  })
-}
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
 
 // app.get('/api/v1/tours', getAllTours);
 // app.post('/api/v1/tours', createTour);
@@ -153,25 +153,17 @@ const deleteUser = (req, res) => {
 // app.patch('/api/v1/tours/:id', updateTour);
 // app.delete('/api/v1/tours/:id', deleteTour);
 
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
+const tourRouter = express.Router();
+const userRouter = express.Router();
 
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
+tourRouter.route('/').get(getAllTours).post(createTour);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
 
-// For routes related to '/api/v1/users'
-app.route('/api/v1/users')
-  .get(getAllUsers)   
-  .post(createUser); 
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
-// For routes related to '/api/v1/users/:id'
-app.route('/api/v1/users/:id')
-  .get(getUser)      
-  .patch(updateUser) 
-  .delete(deleteUser);
-
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 const port = 3000;
 app.listen(port, () => {
