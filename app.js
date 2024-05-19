@@ -49,18 +49,35 @@ app.get('/api/v1/tours/:id', (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((el) => el.id === id);
 
-  if(!tour){
+  if (!tour) {
     return res.status(404).json({
       staus: 'fail',
-      message: 'invalid id'
-    })
+      message: 'invalid id',
+    });
   }
-
 
   res.status(200).json({
     status: 'success',
     data: {
       tour,
+    },
+  });
+});
+
+app.patch('/api/v1/tours/:id', (req, res) => {
+  const id = req.params.id * 1;
+
+  if (id > tours.length) {
+    return res.status(404).json({
+      staus: 'fail',
+      message: 'invalid id',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated Tour ....>',
     },
   });
 });
