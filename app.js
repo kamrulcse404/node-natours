@@ -1,7 +1,9 @@
 const express = require('express');
 const fs = require('fs');
-const app = express();
+const morgan = require('morgan');
 
+const app = express();
+app.use(morgan('dev'));
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -10,7 +12,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString()
+  req.requestTime = new Date().toISOString();
   next();
 });
 
@@ -20,7 +22,7 @@ let tours = JSON.parse(
 );
 
 const getAllTours = (req, res) => {
-  console.log(req.requestTime)
+  console.log(req.requestTime);
   res.status(200).json({
     status: 'success',
     requestedAt: req.requestTime,
@@ -117,8 +119,6 @@ const deleteTour = (req, res) => {
 // app.delete('/api/v1/tours/:id', deleteTour);
 
 app.route('/api/v1/tours').get(getAllTours).post(createTour);
-
-
 
 app
   .route('/api/v1/tours/:id')
